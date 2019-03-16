@@ -1,6 +1,12 @@
 #  K-Means-Cluster Interview Question 
 
 #### 1. What is the draw back of K-Means Algorithm ?
+        1.Cluser centriod  has to be specified which is basically not known in prior.
+        2.Selection of intial cluser centriod is difficult.
+        3.Different intial centroids results in different clusters.
+        4.May run infinitely if the stopping criteria is not satisfied.
+        5.Rescaling your datasets(normalizaHon or standardizaHon) will completely change results. While this itself is not bad,not realizing     that you have to spend extra attention to scaling  your data.
+        6. Outliers can change your cluster in K means to very large extent
 #### 2. Explain K-Mean Algorithm with taking 5 rows and 2 columns as examples ?
 #### 3. Does K-Means affected by Null Values and How to Treat the null values ?
 #### 4. How to Change the Outlier in the data .Does K-Means affect because of the Outlier ?
