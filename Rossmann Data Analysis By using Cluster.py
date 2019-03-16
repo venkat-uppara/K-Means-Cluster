@@ -9,13 +9,13 @@
 # #### Task 5: The clusters formed in the step 3 needs to be tracked across next 30 Quarters 
 # #### Task 6: If there is decline inform key stakeholders about the KPIs. If, there is a continous increse or steady sales...Continue the activities
 
-# In[1]:
+# In[188]:
 
 
 #### Step 1: importing the dependent packages
 
 
-# In[113]:
+# In[189]:
 
 
 import pandas as pd
@@ -29,26 +29,26 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
 
 
-# In[114]:
+# In[190]:
 
 
 #### Step 2: Read the base dataset
 
 
-# In[115]:
+# In[191]:
 
 
 base_data_set =pd.read_csv("Rossmanntrain_new.csv").sample(1000)
 
 
-# In[116]:
+# In[192]:
 
 
 base_data_set['Date'].min()
 base_data_set.count()
 
 
-# In[117]:
+# In[193]:
 
 
 base_data_set['Date'].max()
@@ -60,32 +60,32 @@ base_data_set['Date'].max()
 
 
 
-# In[118]:
+# In[194]:
 
 
 ## Subset the data for the first three months 
 base_data_set=base_data_set[(base_data_set['Date'] >= '2013-01-01') & (base_data_set['Date'] <= '2013-03-31')]
 
 
-# In[119]:
+# In[195]:
 
 
 base_data_set['Date'].min()
 
 
-# In[120]:
+# In[196]:
 
 
 base_data_set['Date'].max()
 
 
-# In[121]:
+# In[197]:
 
 
 base_data_set.count()
 
 
-# In[122]:
+# In[198]:
 
 
 base_data_set.describe().columns
@@ -108,13 +108,13 @@ base_data_set.describe().columns
 # ##### 2: Normalization
 # ##### 3: Standardization 
 
-# In[123]:
+# In[199]:
 
 
 #3.Null value treatement
 
 
-# In[124]:
+# In[200]:
 
 
 def nullValueAnalysis(Base_DataSet):
@@ -138,19 +138,19 @@ def nullValueAnalysis(Base_DataSet):
      return Base_DataSet    
 
 
-# In[125]:
+# In[201]:
 
 
 Base_DataSet=nullValueAnalysis(base_data_set)
 
 
-# In[126]:
+# In[202]:
 
 
 # 3. Outlier Treatment
 
 
-# In[127]:
+# In[203]:
 
 
 def outliersAnalysis(base_data_set):
@@ -171,13 +171,13 @@ def outliersAnalysis(base_data_set):
     return base_data_set
 
 
-# In[128]:
+# In[204]:
 
 
 Base_DataSet=outliersAnalysis(base_data_set)
 
 
-# In[129]:
+# In[205]:
 
 
 def univariate_analysis(base_null_value_treated):
@@ -192,13 +192,13 @@ def univariate_analysis(base_null_value_treated):
         
 
 
-# In[130]:
+# In[206]:
 
 
 #Base_DataSet =univariate_analysis(Base_DataSet)
 
 
-# In[131]:
+# In[207]:
 
 
 # find the correlation between the one and another columns and take only gratethan 0.5 correlation and less than -0.5 correlation
@@ -222,27 +222,27 @@ def bivariate_analysis(Base_dataSet):
     return variables_bivariate  
 
 
-# In[132]:
+# In[208]:
 
 
 # Base_DataSet =bivariate_anaysis(Base_DataSet)
 
 
-# In[133]:
+# In[209]:
 
 
 # Normalization
 Base_dataSet =Base_DataSet
 
 
-# In[136]:
+# In[210]:
 
 
 Base_dataSet.drop(['Date','StateHoliday'],axis=1,inplace=True)
 Base_dataSet.dtypes
 
 
-# In[137]:
+# In[211]:
 
 
 Base_dataSet.dtypes
@@ -260,7 +260,7 @@ sns.heatmap(minmax.corr(),annot=True,cmap='viridis')
 
 
 
-# In[138]:
+# In[212]:
 
 
 # elbow method to find the number of cluster
@@ -277,13 +277,13 @@ def elbow(Base_DataSet,numberCluset):
     plt.show()
 
 
-# In[139]:
+# In[213]:
 
 
 Base_DataSet =elbow(Base_dataSet,30)
 
 
-# In[142]:
+# In[214]:
 
 
 # K Means clustering
@@ -294,13 +294,13 @@ Base_dataSet.describe().columns.index
 Base_dataSet
 
 
-# In[160]:
+# In[ ]:
 
 
 basedataframe= Base_dataSet[['Store', 'DayOfWeek', 'Sales', 'Customers', 'Open', 'Promo','SchoolHoliday']]
 
 
-# In[161]:
+# In[215]:
 
 
 Base_dataSet[Base_dataSet.var().sort_values(ascending=False).head(10).index].sample(100):for i in basedataframe.describe().columns:
@@ -308,7 +308,7 @@ Base_dataSet[Base_dataSet.var().sort_values(ascending=False).head(10).index].sam
     print(Base_dataSet.groupby('cluster').describe()[i])
 
 
-# In[174]:
+# In[216]:
 
 
 
@@ -317,7 +317,7 @@ Base_dataSet[Base_dataSet.var().sort_values(ascending=False).head(10).index]
 
 # #### Visualizations 
 
-# In[187]:
+# In[217]:
 
 
 for i in Base_dataSet[Base_dataSet.var().sort_values(ascending=False).head(10).index]:
@@ -333,10 +333,14 @@ for i in Base_dataSet[Base_dataSet.var().sort_values(ascending=False).head(10).i
             plt.show()
 
 
-# In[ ]:
+# In[218]:
 
 
-
+plt.scatter(Base_dataSet[Base_dataSet['cluster']==1]['Sales'],Base_dataSet[Base_dataSet['cluster']==1]['Customers'])
+plt.scatter(Base_dataSet[Base_dataSet['cluster']==2]['Sales'],Base_dataSet[Base_dataSet['cluster']==2]['Customers'])
+plt.scatter(Base_dataSet[Base_dataSet['cluster']==3]['Sales'],Base_dataSet[Base_dataSet['cluster']==3]['Customers'])
+plt.scatter(Base_dataSet[Base_dataSet['cluster']==4]['Sales'],Base_dataSet[Base_dataSet['cluster']==4]['Customers'])
+plt.scatter(Base_dataSet[Base_dataSet['cluster']==5]['Sales'],Base_dataSet[Base_dataSet['cluster']==5]['Customers'])
 
 
 # In[ ]:
